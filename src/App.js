@@ -1,4 +1,4 @@
-import { readInput, printResult } from "./util.js";
+import { readInput, printResult } from './util.js';
 
 class App {
   async run() {
