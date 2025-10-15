@@ -1,9 +1,12 @@
-import { readInput, printResult } from './util.js';
+import { readInput, printResult, separateNumbers } from './util.js';
 
 class App {
   async run() {
     const input = await readInput();
-    printResult(input);
+
+    const numbers = separateNumbers(input);
+
+    printResult(numbers);
   }
 }
 

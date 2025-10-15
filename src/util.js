@@ -9,3 +9,10 @@ export const readInput = async () => {
 export const printResult = (result) => {
   Console.print(`결과: ${result}`);
 };
+
+export const separateNumbers = (input) => {
+  const delimiter = [',', ':'];
+
+  // 기본 구분자 사용
+  return input.split(/[,:]/);
+};
