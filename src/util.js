@@ -11,7 +11,14 @@ export const printResult = (result) => {
 };
 
 export const separateNumbers = (input) => {
-  const delimiter = [',', ':'];
+  // 커스텀 구분자 사용
+  if (input.startsWith('//')) {
+    input = input.replace(/\\n/g, '\n');
+    const endIndex = input.indexOf('\n');
+    const customDelimiter = input.slice(2, endIndex);
+    const newString = input.slice(endIndex + 1);
+    return newString.split(customDelimiter);
+  }
 
   // 기본 구분자 사용
   return input.split(/[,:]/);
