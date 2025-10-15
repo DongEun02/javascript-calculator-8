@@ -1,4 +1,4 @@
-import { readInput, printResult, separateNumbers } from './util.js';
+import { readInput, printResult, separateNumbers, sum } from './util.js';
 
 class App {
   async run() {
@@ -6,7 +6,9 @@ class App {
 
     const numbers = separateNumbers(input);
 
-    printResult(numbers);
+    const result = sum(numbers);
+
+    printResult(result);
   }
 }
 
