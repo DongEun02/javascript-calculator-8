@@ -42,10 +42,41 @@ export const validateInput = (input) => {
       throw new Error('[ERROR] 커스텀 구분자 선언 형식이 잘못되었습니다.');
   }
 
-  // 숫자가 아닌 문자를 입력한 경우
+  // 잘못된 구분자를 입력하거나 숫자가 아닌 문자를 입력한 경우
   numbers.forEach((n) => {
-    if (isNaN(n)) throw new Error(`[ERROR] 숫자가 입력되지 않았습니다.`);
+    if (isNaN(n))
+      throw new Error(`[ERROR] 잘못된 구분자 또는 문자가 입력되었습니다.`);
   });
+
+  // 구분자 뒤에 숫자가 없는 경우(마지막이 구분자인 경우)
+  if (input.endsWith(',') || input.endsWith(':'))
+    throw new Error('[ERROR] 구분자 뒤에 숫자가 없습니다.');
+  if (input.startsWith('//')) {
+    input = input.replace(/\\n/g, '\n');
+    const endIndex = input.indexOf('\n');
+    const customDelimiter = input.slice(2, endIndex);
+    const newString = input.slice(endIndex + 1);
+    if (newString.endsWith(customDelimiter))
+      throw new Error('[ERROR] 구분자 뒤에 숫자가 없습니다.');
+  }
+
+  // 구분자 사이에 숫자가 없는 경우
+  if (
+    input.includes(',,') ||
+    input.includes('::') ||
+    input.includes(',:') ||
+    input.includes(':,')
+  )
+    throw new Error('[ERROR] 구분자 사이에 숫자가 없습니다.');
+  else if (input.startsWith('//')) {
+    input = input.replace(/\\n/g, '\n');
+    const endIndex = input.indexOf('\n');
+    const customDelimiter = input.slice(2, endIndex);
+    const newString = input.slice(endIndex + 1);
+    const doubleDelimiter = customDelimiter + customDelimiter;
+    if (newString.includes(doubleDelimiter))
+      throw new Error('[ERROR] 구분자 사이에 숫자가 없습니다.');
+  }
 
   // 숫자와 구분자의 순서가 잘못된 경우
   if (numbers.some((n) => n === 0) && numbers.length > 1)
