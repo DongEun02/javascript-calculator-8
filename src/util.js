@@ -48,6 +48,24 @@ export const validateInput = (input) => {
       throw new Error(`[ERROR] 잘못된 구분자 또는 문자가 입력되었습니다.`);
   });
 
+  // 숫자와 구분자의 순서가 잘못된 경우
+  if (
+    (input.startsWith(',') || input.startsWith(':')) &&
+    (input.endsWith(',') || input.endsWith(':'))
+  )
+    throw new Error(`[ERROR] 숫자와 구분자의 순서가 잘못되었습니다.`);
+  else if (input.startsWith('//')) {
+    input = input.replace(/\\n/g, '\n');
+    const endIndex = input.indexOf('\n');
+    const customDelimiter = input.slice(2, endIndex);
+    const newString = input.slice(endIndex + 1);
+    if (
+      newString.startsWith(customDelimiter) &&
+      newString.endsWith(customDelimiter)
+    )
+      throw new Error(`[ERROR] 숫자와 구분자의 순서가 잘못되었습니다.`);
+  }
+
   // 구분자 뒤에 숫자가 없는 경우(마지막이 구분자인 경우)
   if (input.endsWith(',') || input.endsWith(':'))
     throw new Error('[ERROR] 구분자 뒤에 숫자가 없습니다.');
@@ -77,10 +95,6 @@ export const validateInput = (input) => {
     if (newString.includes(doubleDelimiter))
       throw new Error('[ERROR] 구분자 사이에 숫자가 없습니다.');
   }
-
-  // 숫자와 구분자의 순서가 잘못된 경우
-  if (numbers.some((n) => n === 0) && numbers.length > 1)
-    throw new Error(`[ERROR] 숫자와 구분자의 순서가 잘못되었습니다.`);
 
   // 음수를 입력한 경우
   numbers.forEach((n) => {
