@@ -62,15 +62,13 @@ describe('문자열 계산기', () => {
     });
   });
 
-  test('음수가 입력되면 예외 발생', async () => {
-    const inputs = ['-1,2,3'];
+  test('구분자만 입력한 경우 예외 발생', async () => {
+    const inputs = [':::'];
     mockQuestions(inputs);
 
     const app = new App();
 
-    await expect(app.run()).rejects.toThrow(
-      '[ERROR] 음수는 입력할 수 없습니다.'
-    );
+    await expect(app.run()).rejects.toThrow('[ERROR] 구분자만 입력하였습니다.');
   });
 
   test('커스텀 구분자 선언 형식이 잘못된 경우 예외 발생', async () => {
@@ -91,17 +89,63 @@ describe('문자열 계산기', () => {
     const app = new App();
 
     await expect(app.run()).rejects.toThrow(
-      '[ERROR] 숫자가 입력되지 않았습니다.'
+      '[ERROR] 잘못된 구분자 또는 문자가 입력되었습니다.'
     );
   });
 
-  test('구분자만 입력한 경우 예외 발생', async () => {
-    const inputs = [':::'];
+  test('잘못된 구분자가 입력된 경우 예외 발생', async () => {
+    const inputs = ['1;2:3'];
     mockQuestions(inputs);
 
     const app = new App();
 
-    await expect(app.run()).rejects.toThrow('[ERROR] 구분자만 입력하였습니다.');
+    await expect(app.run()).rejects.toThrow(
+      '[ERROR] 잘못된 구분자 또는 문자가 입력되었습니다.'
+    );
+  });
+
+  test('구분자로 끝나는 경우 예외 발생', async () => {
+    const inputs = ['1,2,'];
+    mockQuestions(inputs);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow(
+      '[ERROR] 구분자 뒤에 숫자가 없습니다.'
+    );
+  });
+
+  test('커스텀 구분자로 끝나는 경우 예외 발생', async () => {
+    const inputs = ['//?\n1?2?'];
+    mockQuestions(inputs);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow(
+      '[ERROR] 구분자 뒤에 숫자가 없습니다.'
+    );
+  });
+
+  test('구분자 사이에 숫자가 없는 경우 예외 발생', async () => {
+    const inputs = ['1,,2'];
+    mockQuestions(inputs);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow(
+      '[ERROR] 구분자 사이에 숫자가 없습니다.'
+    );
+  });
+
+  test('커스텀 구분자 사이에 숫자가 없는 경우 예외 발생', async () => {
+    const inputs = ['//?\n1??2'];
+    mockQuestions(inputs);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow(
+      '[ERROR] 구분자 사이에 숫자가 없습니다.'
+    );
   });
 
   test('숫자와 구분자 순서가 잘못된 경우 예외 발생', async () => {
@@ -112,6 +156,17 @@ describe('문자열 계산기', () => {
 
     await expect(app.run()).rejects.toThrow(
       '[ERROR] 숫자와 구분자의 순서가 잘못되었습니다.'
+    );
+  });
+
+  test('음수가 입력되면 예외 발생', async () => {
+    const inputs = ['-1,2,3'];
+    mockQuestions(inputs);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow(
+      '[ERROR] 음수는 입력할 수 없습니다.'
     );
   });
 });
