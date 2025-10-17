@@ -1,4 +1,4 @@
-import parseCustomDelimiter from './parseCustomDelimiter';
+import parseCustomDelimiter from './parseCustomDelimiter.js';
 
 const separateNumbers = (input) => {
   // 커스텀 구분자 사용

@@ -1,5 +1,5 @@
-import separateNumbers from './separateNumbers';
-import parseCustomDelimiter from './parseCustomDelimiter';
+import separateNumbers from './separateNumbers.js';
+import parseCustomDelimiter from './parseCustomDelimiter.js';
 
 const ERROR_MESSAGES = {
   ONLY_DELIMITERS: '[ERROR] 구분자만 입력하였습니다.',

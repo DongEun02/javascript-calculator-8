@@ -61,7 +61,6 @@
 - ESLint Airbnb 스타일을 참고하여 일관된 포맷 유지
 - 상수명은 SNAKE_CASE로 작성
 - 한가지만 export하는 모듈에서는 default export 사용
-- 자바스크립트 파일 확장자 명시X
 
 ## 리팩토링 고려사항 🤔
 

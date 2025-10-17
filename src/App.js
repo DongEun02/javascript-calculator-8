@@ -1,8 +1,8 @@
-import readInput from './utils/readInput';
-import validateInput from './utils/validateInput';
-import separateNumbers from './utils/separateNumbers';
-import sum from './utils/sum';
-import printResult from './utils/printResult';
+import readInput from './utils/readInput.js';
+import validateInput from './utils/validateInput.js';
+import separateNumbers from './utils/separateNumbers.js';
+import sum from './utils/sum.js';
+import printResult from './utils/printResult.js';
 
 class App {
   async run() {
